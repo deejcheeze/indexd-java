@@ -30,6 +30,9 @@ public class Document {
 	@IndexID
 	private String did;
 	
+	private String form;
+	private String version;
+	
 	@IndexHash
 	private Map<String, String> hashes;
 	
