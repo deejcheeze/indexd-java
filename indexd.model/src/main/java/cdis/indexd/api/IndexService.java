@@ -1,7 +1,10 @@
 package cdis.indexd.api;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -16,6 +19,7 @@ import cdis.indexd.annotations.IndexID;
 import cdis.indexd.enums.Role;
 import cdis.indexd.enums.Secured;
 import cdis.indexd.values.Document;
+import cdis.indexd.values.IndexIdList;
 
 @Path("index")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -31,19 +35,20 @@ public interface IndexService {
 	public Document get(@IndexID @PathParam("did") String indexId);
 	
 	@GET
-	public Document get(@QueryParam("limit") int limit, 
+	public IndexIdList get(@QueryParam("limit") @DefaultValue("100") int limit, 
 							@QueryParam("size") int size, 
-							@QueryParam("start") int start, 
+							@QueryParam("start") @DefaultValue("0") int start, 
 							@QueryParam("urls") String[] urls, 
+							@QueryParam("hash") String[] hashes,
 							@QueryParam("file_name") String fileName, 
 							@QueryParam("version") String version, 
 							@QueryParam("metadata") String[] metadata);
 	
-	@POST
-	public void add(Document index);
+	@POST @Path("{did}")
+	public void add(@NotNull @Valid Document index);
 	
 	@POST
-	public void addRevision();
+	public void addRevision(@IndexID @PathParam("did") String indexId, @NotNull @Valid Document index);
 	
 	@GET @Path("{did}/versions")
 	public void listRevisions(@IndexID @PathParam("did") String indexId);

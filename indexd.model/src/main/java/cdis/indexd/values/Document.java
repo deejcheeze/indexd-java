@@ -2,6 +2,7 @@ package cdis.indexd.values;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +33,12 @@ public class Document {
 	
 	private String form;
 	private String version;
+	
+	@JsonProperty("created_date")
+	private Date createdDate;
+	
+	@JsonProperty("updated_date")
+	private Date updatedDate;
 	
 	@IndexHash
 	private Map<String, String> hashes;
