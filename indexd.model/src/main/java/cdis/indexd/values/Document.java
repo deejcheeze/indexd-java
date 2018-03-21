@@ -18,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
-import cdis.indexd.constraints.IndexHash;
-import cdis.indexd.constraints.IndexID;
+import cdis.indexd.annotations.IndexHash;
+import cdis.indexd.annotations.IndexID;
 
 @XmlRootElement(name="document")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -32,6 +32,7 @@ public class Document {
 	
 	@IndexHash
 	private Map<String, String> hashes;
+	
 	private Map<String, Object> metadata;
 	
 	@JsonProperty("file_name")

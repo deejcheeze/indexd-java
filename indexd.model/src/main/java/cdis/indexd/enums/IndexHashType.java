@@ -1,4 +1,4 @@
-package cdis.indexd.constraints;
+package cdis.indexd.enums;
 
 public enum IndexHashType {
 	

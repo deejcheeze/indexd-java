@@ -1,4 +1,4 @@
-package cdis.indexd.constraints;
+package cdis.indexd.annotations;
 
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.ElementType.FIELD;
@@ -13,6 +13,8 @@ import java.lang.annotation.Target;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;
+
+import cdis.indexd.validators.IndexHashValidator;
 
 @Documented
 @Retention(RUNTIME)

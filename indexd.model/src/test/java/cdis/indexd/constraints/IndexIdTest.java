@@ -11,6 +11,8 @@ import javax.validation.Validator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import cdis.indexd.annotations.IndexID;
+
 public class IndexIdTest {
 	
 	private static Validator val;

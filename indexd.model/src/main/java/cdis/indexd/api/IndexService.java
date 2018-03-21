@@ -6,7 +6,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import cdis.indexd.constraints.IndexID;
+import cdis.indexd.annotations.IndexID;
 import cdis.indexd.values.Document;
 
 @Path("get")

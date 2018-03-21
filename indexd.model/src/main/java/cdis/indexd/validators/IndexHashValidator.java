@@ -1,10 +1,13 @@
-package cdis.indexd.constraints;
+package cdis.indexd.validators;
 
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
+
+import cdis.indexd.annotations.IndexHash;
+import cdis.indexd.enums.IndexHashType;
 
 public class IndexHashValidator implements ConstraintValidator<IndexHash, Map<String, String>> {
 	

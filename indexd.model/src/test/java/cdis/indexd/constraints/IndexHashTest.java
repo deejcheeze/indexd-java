@@ -13,6 +13,8 @@ import javax.validation.Validator;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import cdis.indexd.annotations.IndexHash;
+
 public class IndexHashTest {
 	
 	private static Validator val;
