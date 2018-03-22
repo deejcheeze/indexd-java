@@ -1,4 +1,4 @@
-package com.airhacks;
+package cdis.indexd.server;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -9,7 +9,7 @@ import javax.ws.rs.core.Application;
  *
  * @author airhacks.com
  */
-@ApplicationPath("resources")
-public class JAXRSConfiguration extends Application {
+@ApplicationPath("")
+public class RootApp extends Application {
 
 }

@@ -3,51 +3,45 @@ package cdis.indexd.client;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
-
-import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
-
-import org.jboss.resteasy.client.jaxrs.ResteasyWebTarget;
-
 import cdis.indexd.api.IndexService;
 import cdis.indexd.values.Document;
+import cdis.indexd.values.IndexParams;
 
 public class IndexClient {
 	
-	private String baseUrl;
-	private String version;
+	private IndexServiceFactory serviceFactory;
 	
-	private Client client;
-	private String auth;
-
 	public IndexClient(String baseUrl, String version, String username, String password) {
-		this.baseUrl = baseUrl;
-		this.version = version;
 		
-		auth = username + ":" + password;
+		String auth = username + ":" + password;
 		auth = "Basic " + Base64.getEncoder().encodeToString(auth.getBytes());
-		this.client = ClientBuilder.newBuilder().build();
-	}
-	
-	private IndexService getIndexService() {
-		ResteasyWebTarget target = (ResteasyWebTarget) client.target(this.baseUrl);
-		Map<String, String> attribs = new HashMap<>();
-		attribs.put("Authorization", this.auth);
-		target.register(new IndexRequestFilter(attribs));
-		return target.proxy(IndexService.class);
+		this.serviceFactory = new IndexServiceFactory(baseUrl + version, auth);
 	}
 	
 	public Document get(String did) {
-		IndexService service = getIndexService();
+		IndexService service = serviceFactory.getService(IndexService.class, new HashMap<>());
 		return service.get(did);
+	}
+	
+	public void getWithParams(IndexParams params) {
+		IndexService service = serviceFactory.getService(IndexService.class, new HashMap<>());
+		IndexParams indexIds = service.get(params.getLimit(), params.getSize(), params.getStart(), params.getUrls(), 
+				params.getHashes(), params.getFileName(), params.getVersion(), params.getMetadata());
+	}
+	
+	public void listWithParams() {
+		
+	}
+	
+	public Document create(Document doc) {
+		IndexService service = serviceFactory.getService(IndexService.class, new HashMap<>());
+		doc = service.add(doc);
+		return doc;
 	}
 	
 	public Document create(String did, String fileName, int size, String[] urls, Map<String, String> hashes, Map<String, Object> metadata) {
 		Document doc = new Document(did, urls, fileName, size, hashes, metadata);
-		IndexService service = getIndexService();
-		Document add = service.add(doc);
-		return add;
+		return this.create(doc);
 	}
 	
 	public static void main(String[] args) {

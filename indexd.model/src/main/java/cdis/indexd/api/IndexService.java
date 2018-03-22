@@ -19,7 +19,7 @@ import cdis.indexd.annotations.IndexID;
 import cdis.indexd.enums.Role;
 import cdis.indexd.enums.Secured;
 import cdis.indexd.values.Document;
-import cdis.indexd.values.IndexIdList;
+import cdis.indexd.values.IndexParams;
 
 @Path("index/")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -35,7 +35,7 @@ public interface IndexService {
 	public Document get(@IndexID @PathParam("did") String indexId);
 	
 	@GET
-	public IndexIdList get(@QueryParam("limit") @DefaultValue("100") int limit, 
+	public IndexParams get(@QueryParam("limit") @DefaultValue("100") int limit, 
 							@QueryParam("size") int size, 
 							@QueryParam("start") @DefaultValue("0") int start, 
 							@QueryParam("urls") String[] urls, 

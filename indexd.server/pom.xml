@@ -6,9 +6,7 @@
     <groupId>edu.uchicago.cdis</groupId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-    <groupId>edu.uchicago.cdis</groupId>
     <artifactId>indexd.server</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <dependencies>
         <dependency>
@@ -16,6 +14,11 @@
             <artifactId>javaee-api</artifactId>
             <version>8.0</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+        	<groupId>edu.uchicago.cdis</groupId>
+        	<artifactId>indexd.model</artifactId>
+        	<version>0.0.1-SNAPSHOT</version>
         </dependency>
     </dependencies>
     <build>

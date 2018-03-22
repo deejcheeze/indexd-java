@@ -8,7 +8,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import cdis.indexd.values.IndexIdList;
+import cdis.indexd.values.IndexParams;
 
 @Path("urls")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
@@ -16,7 +16,7 @@ import cdis.indexd.values.IndexIdList;
 public interface UrlService {
 	
 	@GET
-	public IndexIdList list(@QueryParam("limit") @DefaultValue("100") int limit, 
+	public IndexParams list(@QueryParam("limit") @DefaultValue("100") int limit, 
 			@QueryParam("size") int size, 
 			@QueryParam("start") @DefaultValue("0") int start, 
 			@QueryParam("urls") String[] urls, 
