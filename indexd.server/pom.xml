@@ -20,6 +20,11 @@
         	<artifactId>indexd.model</artifactId>
         	<version>0.0.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+        	<groupId>com.nimworks</groupId>
+        	<artifactId>nworm.core</artifactId>
+        	<version>4.0.1-SNAPSHOT</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>indexd.server</finalName>
