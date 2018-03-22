@@ -19,7 +19,6 @@ public class IndexRequestFilter implements ClientRequestFilter {
 	@Override
 	public void filter(ClientRequestContext requestContext) throws IOException {
 
-		requestContext.getHeaders().add("Device-Type", "WEB");
 		requestContext.getHeaders().add("Content-Type", "application/json");
 		
 		requestContext.getHeaders().add("Accept", "application/json,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");

@@ -7,32 +7,32 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.validation.Validation;
-import javax.validation.Validator;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.URL;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
 
 import cdis.indexd.annotations.IndexHash;
-import cdis.indexd.annotations.IndexID;
+import lombok.Data;
 
+@Data
 @XmlRootElement(name="document")
 @XmlAccessorType(XmlAccessType.FIELD)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Document {
 	
 	private int size;
-	
-	@IndexID
+	private String rev;
 	private String did;
 	
-	private String form;
+	@JsonProperty("baseid")
+	private String baseId;
 	private String version;
+	private String form = "object";
 	
 	@JsonProperty("created_date")
 	private Date createdDate;
@@ -46,11 +46,14 @@ public class Document {
 	private Map<String, Object> metadata;
 	
 	@JsonProperty("file_name")
-	@SerializedName("file_name")
-	private String fileName = "aaa.aaa";
+	private String fileName;
 	
 	@JsonProperty("urls")
 	private List<@URL String> urls;
+	
+	public Document() {
+		this(null, new String[0], null, 0, new HashMap<>(), new HashMap<>());
+	}
 	
 	public Document(String did, String[] urls, String fileName, int size, Map<String, String> hashes, Map<String, Object> metadata) {
 		this.did = did;
@@ -61,45 +64,12 @@ public class Document {
 		this.fileName = fileName;
 	}
 	
-	public String getDid() {
-		return did;
-	}
-	
-	public int getSize() {
-		return size;
-	}
-	
-	public String getFileName() {
-		return fileName;
-	}
-	
 	private void addUrls(String[] urls) {
 		if(this.urls == null) {
 			this.urls = new ArrayList<>();
 		}
 		
 		this.urls.addAll(Arrays.asList(urls));
-	}
-	
-	public Map<String, String> getHashes() {
-		return this.hashes;
-	}
-	
-	public String[] getUrls() {
-		return this.urls.toArray(new String[0]);
-	}
-	
-	public static void main(String[] args) {
-		Validator val = Validation.buildDefaultValidatorFactory().getValidator();
-		Document document = new Document("AAAgoogle.com", new String[] {"http://www.google.com"}, "dalu.txt", 34, new HashMap<>(), new HashMap<>());
-		System.out.println(val.validate(document));
-		
-		Gson gs = new Gson();
-		String json = gs.toJson(document);
-		System.out.println(json);
-		
-		Document fj = gs.fromJson("{\"did\":\"AAAgoogle.com\",\"file_name\":\"daalu.txt\",\"urls\":[\"http://www.google.com\"]}", Document.class);
-		System.out.println(fj.fileName);
 	}
 	
 }
