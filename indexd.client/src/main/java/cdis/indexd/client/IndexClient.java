@@ -23,14 +23,16 @@ public class IndexClient {
 		return service.get(did);
 	}
 	
-	public void getWithParams(IndexParams params) {
+	public IndexParams getWithParams(IndexParams params) {
 		IndexService service = serviceFactory.getService(IndexService.class, new HashMap<>());
 		IndexParams indexIds = service.get(params.getLimit(), params.getSize(), params.getStart(), params.getUrls(), 
 				params.getHashes(), params.getFileName(), params.getVersion(), params.getMetadata());
+		
+		return indexIds;
 	}
 	
-	public void listWithParams() {
-		
+	public void listWithParams(IndexParams params) {
+		IndexService service = serviceFactory.getService(IndexService.class, new HashMap<>());
 	}
 	
 	public Document create(Document doc) {
@@ -45,11 +47,15 @@ public class IndexClient {
 	}
 	
 	public static void main(String[] args) {
-		IndexClient client = new IndexClient("http://localhost:8080/", "v0", "test", "test");
+		IndexClient client = new IndexClient("http://localhost:8080", "/", "test", "test");
 		Map<String, String> hashes = new HashMap<>();
 		hashes.put("md5", "ab167e49d25b488939b1ede42752458c");
-		Document doc = client.create(null, "aaa.txt", 10, new String[] {"google.com"}, hashes, new HashMap<>());
-		Document document = client.get(doc.getDid());
+//		Document doc = client.create(null, "aaa.txt", 10, new String[] {"google.com"}, hashes, new HashMap<>());
+		IndexParams params = new IndexParams();
+		params.setHashes(new String[] {"md5:ab167e49d25b488939b1ede42752458c"});
+		params.setMetadata(new String[] {"age:3"});
+		params.setUrls(new String[0]);
+		IndexParams document = client.getWithParams(params);
 
 		System.out.println(document);
 	}

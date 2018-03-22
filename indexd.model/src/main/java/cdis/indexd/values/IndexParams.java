@@ -5,6 +5,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import lombok.Data;
@@ -15,7 +16,7 @@ import lombok.Data;
 public class IndexParams {
 	
 	private List<String> ids;
-	private int limit;
+	private int limit = 100;
 	private int size;
 	private int start;
 	
@@ -26,7 +27,6 @@ public class IndexParams {
 	private String version;
 	
 	private String[] hashes;
-	
 	private String[] metadata;
 
 }
