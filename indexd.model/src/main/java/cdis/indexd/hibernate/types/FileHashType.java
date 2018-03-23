@@ -1,6 +1,6 @@
-package cdis.indexd.model;
+package cdis.indexd.hibernate.types;
 
-import cdis.indexd.hibernate.types.JsonType;
+import cdis.indexd.model.FileHash;
 
 public class FileHashType extends JsonType {
 

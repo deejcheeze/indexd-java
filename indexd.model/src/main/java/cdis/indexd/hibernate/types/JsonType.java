@@ -21,7 +21,7 @@ public abstract class JsonType implements UserType {
 
 	@Override
 	public int[] sqlTypes() {
-		return new int[] { Types.OTHER };
+		return new int[] { Types.JAVA_OBJECT };
 	}
 	
 	@Override
@@ -94,20 +94,17 @@ public abstract class JsonType implements UserType {
 	
 	@Override
 	public Serializable disassemble(Object value) throws HibernateException {
-		// TODO Auto-generated method stub
-		return null;
+		return (Serializable) value;
 	}
 
 	@Override
 	public Object assemble(Serializable cached, Object owner) throws HibernateException {
-		// TODO Auto-generated method stub
-		return null;
+		return cached;
 	}
 
 	@Override
 	public Object replace(Object original, Object target, Object owner) throws HibernateException {
-		// TODO Auto-generated method stub
-		return null;
+		return original;
 	}
 
 }

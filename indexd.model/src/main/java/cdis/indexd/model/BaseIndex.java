@@ -1,5 +1,7 @@
 package cdis.indexd.model;
 
+import java.util.UUID;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
@@ -13,7 +15,6 @@ import lombok.Setter;
 import nw.orm.core.IEntity;
 
 
-@Getter @Setter
 @Entity @Table(name = "base_indexes")
 @XmlRootElement(name = "base")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -24,11 +25,16 @@ public class BaseIndex extends IEntity {
 	 */
 	private static final long serialVersionUID = -5065950668315691737L;
 	
-	@IndexID 
+	public BaseIndex() {
+		this.did = UUID.randomUUID().toString();
+	}
+	
+	@IndexID @Getter
 	@Column(unique = true, updatable = false, nullable = false)
 	private String did;
 	
-	@Column(nullable = false)
+	@Getter @Setter
+	@Column(nullable = false, name = "active_version")
 	private String activeVersion;
 	
 
