@@ -1,6 +1,8 @@
 package cdis.indexd.model;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -32,5 +34,16 @@ public class FileHash implements Serializable {
 	
 	@JsonProperty("etag")
 	private String etag;
+	
+	public Map<String, String> toMap() {
+		Map<String, String> hashesMap = new HashMap<>();
+		hashesMap.put("md5", this.getMd5());
+		hashesMap.put("sha1", this.getSha1());
+		hashesMap.put("sha256", this.getSha256());
+		hashesMap.put("sha512", this.getSha512());
+		hashesMap.put("crc", this.getCrc());
+		hashesMap.put("etag", this.getEtag());
+		return hashesMap;
+	}
 
 }

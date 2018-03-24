@@ -1,5 +1,6 @@
 package cdis.indexd.values;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -17,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cdis.indexd.annotations.IndexHash;
+import cdis.indexd.model.FileIndex;
 import lombok.Data;
 
 @Data
@@ -70,6 +72,34 @@ public class Document {
 		}
 		
 		this.urls.addAll(Arrays.asList(urls));
+	}
+	
+	public FileIndex toIndex() {
+		FileIndex index = new FileIndex();
+		index.setFileName(this.getFileName());
+		index.setFileSize(new BigInteger(this.getSize() + ""));
+		index.setUrls(this.getUrls());
+		index.setMetaData(this.getMetadata());
+		
+		return index;
+	}
+	
+	public static Document fromIndex(FileIndex index) {
+		Document doc = new Document();
+		doc.setDid(index.getDid());
+		doc.setBaseId(index.getBaseId());
+		doc.setFileName(index.getFileName());
+		doc.setSize(index.getFileSize().intValue());
+		doc.setHashes(index.getHashes().toMap());
+		doc.setMetadata(index.getMetaData());
+		doc.setUrls(index.getUrls());
+		doc.setRev(index.getRev());
+		doc.setVersion(index.getVersion());
+		doc.setForm(index.getForm());
+		
+		doc.setCreatedDate(index.getCreateDate());
+		doc.setUpdatedDate(index.getLastModified());
+		return doc;
 	}
 	
 }

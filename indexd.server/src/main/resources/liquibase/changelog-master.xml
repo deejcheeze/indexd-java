@@ -1,0 +1,71 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+    <changeSet author="rowland (generated)" id="1521843881070-1">
+        <createSequence sequenceName="hibernate_sequence"/>
+    </changeSet>
+    <changeSet author="rowland (generated)" id="1521843881070-2">
+        <createTable tableName="base_indexes">
+            <column autoIncrement="true" name="PK" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="base_indexesPK"/>
+            </column>
+            <column name="ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATE_DATE" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DELETED" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active_version" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="did" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rowland (generated)" id="1521843881070-3">
+        <createTable tableName="file_indexes">
+            <column autoIncrement="true" name="PK" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="file_indexesPK"/>
+            </column>
+            <column name="ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATE_DATE" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DELETED" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="did" type="VARCHAR(255)"/>
+            <column name="file_name" type="VARCHAR(255)"/>
+            <column name="file_size" type="numeric(19, 2)"/>
+            <column name="form" type="VARCHAR(255)"/>
+            <column name="hashes" type="JSONB"/>
+            <column name="meta_data" type="JSONB"/>
+            <column name="rev" type="VARCHAR(255)"/>
+            <column name="urls" type="JSONB"/>
+            <column name="version" type="VARCHAR(255)"/>
+            <column name="base_index_fk" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rowland (generated)" id="1521843881070-4">
+        <addUniqueConstraint columnNames="did" constraintName="UC_BASE_INDEXESDID_COL" tableName="base_indexes"/>
+    </changeSet>
+    <changeSet author="rowland (generated)" id="1521843881070-5">
+        <addUniqueConstraint columnNames="did" constraintName="UC_FILE_INDEXESDID_COL" tableName="file_indexes"/>
+    </changeSet>
+    <changeSet author="rowland (generated)" id="1521843881070-6">
+        <addForeignKeyConstraint baseColumnNames="base_index_fk" baseTableName="file_indexes" constraintName="FKsbeyj07olpxxj3mc98p0sgph" deferrable="false" initiallyDeferred="false" referencedColumnNames="PK" referencedTableName="base_indexes"/>
+    </changeSet>
+</databaseChangeLog>

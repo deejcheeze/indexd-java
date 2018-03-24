@@ -1,4 +1,4 @@
-package cdis.indexd.server.impl;
+package cdis.indexd.api.impl;
 
 import javax.ws.rs.core.Response;
 

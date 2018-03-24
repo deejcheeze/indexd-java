@@ -1,0 +1,31 @@
+version: "3.0"
+
+services:
+    indexd.postgres:
+        image: postgres
+        ports:
+            - "2346:5432"
+        volumes:
+            - /var/lib/postgresql/data
+        environment:
+            - POSTGRES_DB=${PG_DB}
+            - POSTGRES_USER=${PG_USER}
+            - POSTGRES_PASSWORD=${PG_PASS}
+    indexd.api:
+        build: 
+            context: ./indexd.server
+            args:
+                WAR: index.server-0.0.1-SNAPSHOT.war
+        ports:
+          - "8443"
+          - "8080:8080"
+          - "9997:9990"
+        depends_on:
+          - indexd.postgres
+        volumes:
+          - ./wildfly/master/logs:/opt/jboss/wildfly/log
+          - ./data/api:/opt/jboss/wildfly/env
+        environment:
+          - db.url=jdbc:postgresql://indexd.postgres/${PG_DB}
+          - db.user=${PG_USER}
+          - db.pass=${PG_PASS}

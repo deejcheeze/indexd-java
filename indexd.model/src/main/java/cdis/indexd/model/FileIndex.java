@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -55,32 +56,36 @@ public class FileIndex extends IEntity {
 	private String form;
 	
 	@JsonProperty("file_name")
-	@Column(nullable = true)
+	@Column(nullable = true, name = "file_name")
 	private String fileName;
 	
-	@Column(nullable = true)
+	@Column(nullable = true, name="version")
 	private String version;
 	
 	@JsonProperty("size")
-	@Column(nullable = true)
+	@Column(nullable = true, name = "file_size")
 	private BigInteger fileSize;
 	
 	@ManyToOne(optional = false, cascade = CascadeType.ALL)
 	@JoinColumn(name = "base_index_fk", nullable = false, updatable = false)
 	private BaseIndex baseIndex;
 	
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "user_fk", nullable = false, updatable = false)
+	private User createdBy;
+	
 	@FileIndexHash
 	@Type(type = "FileHashType")
 	private FileHash hashes;
 	
-	@JsonProperty("urls")
+	@JsonProperty("urls") @Valid
 	@Convert(converter = JsonListConverter.class)
-	@Column(name = "urls", columnDefinition = "clob")
+	@Column(name = "urls", nullable = true)
 	private List<@URL String> urls;
 	
-	@JsonProperty("metadata")
+	@JsonProperty("metadata") @Valid
 	@Convert(converter = JsonMapConverter.class)
-	@Column(name = "meta_data", columnDefinition = "clob")
+	@Column(name = "meta_data", nullable = true)
 	private Map<String, Object> metaData;
 	
 	public String getBaseId() {
