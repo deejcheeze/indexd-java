@@ -58,8 +58,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public Response verify(@Valid User user) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new WebApplicationException(Status.FORBIDDEN);
 	}
 
 }

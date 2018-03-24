@@ -2,6 +2,8 @@ package cdis.indexd.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,6 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import cdis.indexd.enums.Role;
 import lombok.Getter;
 import lombok.Setter;
 import nw.orm.core.IEntity;
@@ -31,6 +34,9 @@ public class User extends IEntity {
 	
 	@JsonIgnore
 	private String password;
+	
+	@Enumerated(EnumType.STRING)
+	private Role role = Role.user;
 	
 	private boolean verified;
 	private boolean blacklisted;

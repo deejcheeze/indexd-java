@@ -29,3 +29,4 @@ services:
           - db.url=jdbc:postgresql://indexd.postgres/${PG_DB}
           - db.user=${PG_USER}
           - db.pass=${PG_PASS}
+          - index.token=${INDEX_TOKEN}
