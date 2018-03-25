@@ -17,15 +17,12 @@ import javax.ws.rs.container.ResourceInfo;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.ext.Provider;
 
-import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 
 import cdis.indexd.auth.AuthTokenizer;
 import cdis.indexd.enums.Role;
 import cdis.indexd.enums.Secured;
 import cdis.indexd.model.User;
-import nw.orm.core.query.QueryParameter;
-import nw.orm.jpa.JDao;
 import nw.orm.jpa.JpaDaoFactory;
 
 @Provider
