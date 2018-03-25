@@ -18,4 +18,17 @@
             <property name="hibernate.format_sql" value="false" />
         </properties>
 	</persistence-unit>
+	<persistence-unit name="indexd-local">
+	    <class>cdis.indexd.model.User</class>
+	    <class>cdis.indexd.model.BaseIndex</class>
+		<class>cdis.indexd.model.FileIndex</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+
+		<properties>
+            <property name="hibernate.integration.envers.enabled" value="false"/>
+            <property name="hibernate.dialect" value="cdis.indexd.hibernate.dialect.IndexPostgreSQLDialect" />
+            <property name="hibernate.show_sql" value="false" />
+            <property name="hibernate.format_sql" value="false" />
+        </properties>
+	</persistence-unit>
 </persistence>
