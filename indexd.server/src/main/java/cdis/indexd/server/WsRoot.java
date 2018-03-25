@@ -9,6 +9,8 @@ import javax.ws.rs.core.Application;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 
 import cdis.indexd.api.impl.IndexServiceImpl;
+import cdis.indexd.api.impl.StatServiceImpl;
+import cdis.indexd.api.impl.StatusServiceImpl;
 import cdis.indexd.api.impl.UserServiceImpl;
 import cdis.indexd.api.impl.VersionServiceImpl;
 
@@ -31,9 +33,13 @@ public class WsRoot extends Application {
 	
 	public void addResources() {
 		getClasses().add(UserServiceImpl.class);
+		getClasses().add(StatServiceImpl.class);
 		getClasses().add(IndexServiceImpl.class);
+		getClasses().add(StatusServiceImpl.class);
 		getClasses().add(VersionServiceImpl.class);
 		
+		getClasses().add(IndexException.class);
+		getClasses().add(ValidationExceptionMapper.class);
 		getClasses().add(IndexRequestFilter.class);
 	}
 	

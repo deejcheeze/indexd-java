@@ -30,3 +30,5 @@ services:
           - db.user=${PG_USER}
           - db.pass=${PG_PASS}
           - index.token=${INDEX_TOKEN}
+          - admin.username=${AD_USER}
+          - admin.password=${AD_PWD}

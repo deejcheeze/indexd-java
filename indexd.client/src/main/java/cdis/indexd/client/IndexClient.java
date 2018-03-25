@@ -47,10 +47,13 @@ public class IndexClient {
 	}
 	
 	public static void main(String[] args) {
-		IndexClient client = new IndexClient("http://localhost:8080", "/", "test", "test");
+		IndexClient client = new IndexClient("http://localhost:8080", "/", "admin", "admin");
 		Map<String, String> hashes = new HashMap<>();
 		hashes.put("md5", "ab167e49d25b488939b1ede42752458c");
-//		Document doc = client.create(null, "aaa.txt", 10, new String[] {"google.com"}, hashes, new HashMap<>());
+		
+		Map<String, Object> md = new HashMap<>();
+		md.put("aws", "Nada");
+		Document doc = client.create(null, "aaa.txt", 10, new String[] {"http://google.com"}, hashes, md);
 		IndexParams params = new IndexParams();
 		params.setHashes(new String[] {"md5:ab167e49d25b488939b1ede42752458c"});
 		params.setMetadata(new String[] {"age:3"});

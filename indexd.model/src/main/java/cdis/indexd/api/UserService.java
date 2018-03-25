@@ -10,6 +10,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import cdis.indexd.enums.Role;
+import cdis.indexd.enums.Secured;
 import cdis.indexd.model.User;
 
 
@@ -26,5 +28,8 @@ public interface UserService {
 	
 	@PUT @Path("verify")
 	public Response verify(@Valid User user);
+	
+	@Secured({Role.admin})
+	public Response disableAccount(String username);
 
 }

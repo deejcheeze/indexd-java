@@ -10,7 +10,7 @@
     <logger name="org.jboss" level="ERROR" />
 	<logger name="org.eclipse" level="INFO" />
 	<logger name="org.hibernate" level="ERROR" />
-	<logger name="ng.nurl" level="TRACE" />
+	<logger name="cdis.indexd" level="TRACE" />
     
     <root level="INFO">
 		<appender-ref ref="STDOUT" />

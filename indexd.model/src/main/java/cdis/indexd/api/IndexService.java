@@ -21,7 +21,7 @@ import cdis.indexd.enums.Secured;
 import cdis.indexd.values.Document;
 import cdis.indexd.values.IndexParams;
 
-@Path("index/")
+@Path("index")
 @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
 public interface IndexService {
@@ -47,7 +47,7 @@ public interface IndexService {
 	@POST
 	public Document add(@NotNull @Valid Document index);
 	
-	@POST
+	@POST @Path("{did}")
 	public void addRevision(@IndexID @PathParam("did") String indexId, @NotNull @Valid Document index);
 	
 	@GET @Path("{did}/versions")

@@ -4,8 +4,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.Base64;
 
 import javax.annotation.PostConstruct;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
@@ -15,8 +15,8 @@ import nw.orm.core.query.QueryParameter;
 import nw.orm.jpa.JDao;
 import nw.orm.jpa.JpaDaoFactory;
 
-@Singleton
-public class BasicTokenizer implements AuthTokenizer {
+@Stateless
+public class BasicTokenizer {
 	
 	@Inject
 	private Logger logger;
@@ -31,13 +31,6 @@ public class BasicTokenizer implements AuthTokenizer {
 		userDao = daoFactory.getDao(User.class);
 	}
 
-	@Override
-	public String create(User user) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public User verify(String token) {
 		
 		try {

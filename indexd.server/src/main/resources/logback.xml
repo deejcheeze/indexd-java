@@ -17,6 +17,7 @@
 	<logger name="org.jboss" level="ERROR" />
 	<logger name="org.eclipse" level="ERROR" />
 	<logger name="org.hibernate" level="ERROR" />
+	<logger name="nw.orm" level="TRACE" />
 
 	<root level="DEBUG">
 		<appender-ref ref="STDOUT" />

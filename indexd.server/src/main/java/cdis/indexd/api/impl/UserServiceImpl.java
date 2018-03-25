@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
 		throw new WebApplicationException(Status.FORBIDDEN);
 	}
 
+	@Override
+	public Response disableAccount(String username) {
+		throw new WebApplicationException(Status.FORBIDDEN);
+	}
+
 }

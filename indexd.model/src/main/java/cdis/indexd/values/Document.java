@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import cdis.indexd.annotations.IndexHash;
+import cdis.indexd.model.FileHash;
 import cdis.indexd.model.FileIndex;
 import lombok.Data;
 
@@ -80,7 +81,9 @@ public class Document {
 		index.setFileSize(new BigInteger(this.getSize() + ""));
 		index.setUrls(this.getUrls());
 		index.setMetaData(this.getMetadata());
-		
+		index.setDid(this.getDid());
+		index.setVersion(this.getVersion());
+		index.setHashes(FileHash.fromMap(getHashes()));
 		return index;
 	}
 	

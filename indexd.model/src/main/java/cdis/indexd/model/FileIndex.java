@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,7 +67,7 @@ public class FileIndex extends IEntity {
 	@Column(nullable = true, name = "file_size")
 	private BigInteger fileSize;
 	
-	@ManyToOne(optional = false, cascade = CascadeType.ALL)
+	@ManyToOne(optional = false, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "base_index_fk", nullable = false, updatable = false)
 	private BaseIndex baseIndex;
 	
@@ -108,6 +109,10 @@ public class FileIndex extends IEntity {
 			metaData = new HashMap<>();
 		}
 		metaData.put(key, val);
+	}
+
+	public void freshDid() {
+		this.did = UUID.randomUUID().toString();
 	}
 
 }

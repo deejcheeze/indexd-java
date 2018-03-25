@@ -15,9 +15,12 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 
 import org.hibernate.internal.SessionImpl;
+import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 
 import cdis.indexd.Env;
+import cdis.indexd.enums.Role;
+import cdis.indexd.model.User;
 import liquibase.Contexts;
 import liquibase.Liquibase;
 import liquibase.database.Database;
@@ -25,6 +28,8 @@ import liquibase.database.DatabaseFactory;
 import liquibase.database.jvm.JdbcConnection;
 import liquibase.exception.LiquibaseException;
 import liquibase.resource.ClassLoaderResourceAccessor;
+import nw.orm.core.query.QueryParameter;
+import nw.orm.jpa.JDao;
 import nw.orm.jpa.JpaDaoFactory;
 
 @Startup
@@ -49,10 +54,12 @@ public class IndexDaoProvider {
 		
 		if(em == null) {
 			Map<String, String> props = new HashMap<>();
-			em = Persistence.createEntityManagerFactory("nurlng", props);
+			em = Persistence.createEntityManagerFactory("indexd", props);
 		}
+		factory = new JpaDaoFactory(em, true);
 		
 		migrate();
+		initAdmin();
 		logger.info("database initialization complete");
 	}
 	
@@ -82,9 +89,30 @@ public class IndexDaoProvider {
 			liquibase = new Liquibase("liquibase/changelog-master.xml", new ClassLoaderResourceAccessor(), database);
 			liquibase.update(ctx);
 			
+			em.close();
 			logger.debug("Migration completed successfully");
 		} catch (LiquibaseException e) {
 			logger.error("Exception ", e);
+		}
+	}
+	
+	protected void initAdmin() {
+		String adminUsername = env.getEnv("admin.username", "admin");
+		String adminPwd = env.getEnv("admin.password", "admin");
+		JDao<User> userDao = this.factory.getDao(User.class);
+		
+		User user = userDao.find(QueryParameter.create("username", adminUsername));
+		if(user == null) {
+			user = new User();
+			user.setRole(Role.admin);
+			user.setPassword(BCrypt.hashpw(adminPwd, BCrypt.gensalt()));
+			user.setUsername(adminUsername);
+			user.setVerified(true);
+			
+			userDao.save(user);
+		}else if(!BCrypt.checkpw(adminPwd, user.getPassword())) {
+			user.setPassword(BCrypt.hashpw(adminPwd, BCrypt.gensalt()));
+			userDao.update(user);
 		}
 	}
 

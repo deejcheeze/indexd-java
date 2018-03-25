@@ -52,7 +52,7 @@ public class Env {
 			env.load(fis);
 			
 		} catch (Exception e) {
-			logger.error("env file not found", e);
+			logger.error("env Exception", e.getMessage());
 		}
 		return env;
 	}

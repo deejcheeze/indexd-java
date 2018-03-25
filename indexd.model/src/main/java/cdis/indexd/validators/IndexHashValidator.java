@@ -29,7 +29,7 @@ public class IndexHashValidator implements ConstraintValidator<IndexHash, Map<St
 	
 	private boolean validate(Entry<String, String> entry, ConstraintValidatorContext ctx) {
 		
-		String hashType = entry.getKey();
+		String hashType = entry.getKey().toUpperCase();
 		IndexHashType indexHashType = IndexHashType.fromString(hashType);
 		if(indexHashType == null) {
 			return false;

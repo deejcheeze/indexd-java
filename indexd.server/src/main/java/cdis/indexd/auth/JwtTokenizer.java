@@ -6,9 +6,8 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.inject.Default;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +24,7 @@ import cdis.indexd.enums.Role;
 import cdis.indexd.model.User;
 
 
-@Singleton @Default
+@Stateless
 public class JwtTokenizer implements AuthTokenizer {
 	
 	@Inject

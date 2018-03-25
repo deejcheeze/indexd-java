@@ -11,7 +11,7 @@ import cdis.indexd.model.User;
 public class AuthProvider {
 	
 	@Inject
-	private JwtTokenizer jwtTokenizer;
+	private AuthTokenizer jwtTokenizer;
 	
 	@Inject
 	private BasicTokenizer basicTokenizer;

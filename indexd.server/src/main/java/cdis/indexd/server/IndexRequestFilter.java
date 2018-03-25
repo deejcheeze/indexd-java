@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -32,6 +33,9 @@ public class IndexRequestFilter implements ContainerRequestFilter {
 	
 	@Context
     private ResourceInfo resourceInfo;
+	
+	@Inject
+	private HttpServletRequest request;
 
 	@Override
 	public void filter(ContainerRequestContext ctx) throws IOException {
@@ -62,6 +66,7 @@ public class IndexRequestFilter implements ContainerRequestFilter {
 			if(!allowed){
 				throw new NotAuthorizedException("Bearer");
 			}
+			request.setAttribute("loggedin.user", authorizedUser);
 		}
 	}
 

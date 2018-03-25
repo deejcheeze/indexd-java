@@ -45,5 +45,17 @@ public class FileHash implements Serializable {
 		hashesMap.put("etag", this.getEtag());
 		return hashesMap;
 	}
+	
+	public static FileHash fromMap(Map<String, String> hashesMap) {
+		
+		FileHash hash = new FileHash();
+		hash.setMd5(hashesMap.get("md5"));
+		hash.setSha1(hashesMap.get("sha1"));
+		hash.setSha256(hashesMap.get("sha256"));
+		hash.setSha512(hashesMap.get("sha512"));
+		hash.setCrc(hashesMap.get("crc"));
+		hash.setEtag(hashesMap.get("etag"));
+		return hash;
+	}
 
 }
