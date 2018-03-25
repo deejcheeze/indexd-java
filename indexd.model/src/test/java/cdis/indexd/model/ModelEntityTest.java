@@ -18,7 +18,7 @@ public class ModelEntityTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() {
-		em = Persistence.createEntityManagerFactory("indexd");
+		em = Persistence.createEntityManagerFactory("indexd-test");
 	}
 	
 	@Test

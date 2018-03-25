@@ -6,8 +6,9 @@ import java.time.ZoneId;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ import cdis.indexd.enums.Role;
 import cdis.indexd.model.User;
 
 
-@Singleton
+@Singleton @Default
 public class JwtTokenizer implements AuthTokenizer {
 	
 	@Inject
@@ -39,7 +40,7 @@ public class JwtTokenizer implements AuthTokenizer {
 	
 	@Inject
 	public JwtTokenizer() {
-		this.tokenSecret = env.getEnv("index.token");
+		
 	}
 	
 	public JwtTokenizer(String secret) {
@@ -51,6 +52,9 @@ public class JwtTokenizer implements AuthTokenizer {
 	public void init() {
 		
 		try {
+			if(this.tokenSecret == null) {
+				this.tokenSecret = env.getEnv("index.token");
+			}
 			algoHmac = Algorithm.HMAC256(this.tokenSecret);
 		} catch (IllegalArgumentException | UnsupportedEncodingException e) {
 			logger.error("Exception initializing JWT", e);

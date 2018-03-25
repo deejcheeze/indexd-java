@@ -9,6 +9,7 @@ import javax.ws.rs.core.Application;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 
 import cdis.indexd.api.impl.IndexServiceImpl;
+import cdis.indexd.api.impl.UserServiceImpl;
 import cdis.indexd.api.impl.VersionServiceImpl;
 
 /**
@@ -18,17 +19,18 @@ import cdis.indexd.api.impl.VersionServiceImpl;
  * @author airhacks.com
  */
 @ApplicationPath("")
-public class WsApp extends Application {
+public class WsRoot extends Application {
 	
 	private Set<Object> singletons = new HashSet<Object>();
 	private HashSet<Class<?>> classes = new HashSet<Class<?>>();
 	
-	public WsApp() {
+	public WsRoot() {
 		addResources();
 		addCors();
 	}
 	
 	public void addResources() {
+		getClasses().add(UserServiceImpl.class);
 		getClasses().add(IndexServiceImpl.class);
 		getClasses().add(VersionServiceImpl.class);
 		

@@ -31,6 +31,8 @@ public class Env {
 		for (Object key : props.keySet()) {
 			env.put(key, props.get(key));
 		}
+		
+		logger.info(env.toString());
 		logger.info("Env initialized completely");
 	}
 	

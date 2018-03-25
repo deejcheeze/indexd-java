@@ -1,12 +1,9 @@
 package cdis.indexd.server;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.HashSet;
-import java.util.Locale;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -19,11 +16,10 @@ import javax.ws.rs.ext.Provider;
 
 import org.slf4j.Logger;
 
-import cdis.indexd.auth.AuthTokenizer;
+import cdis.indexd.auth.AuthProvider;
 import cdis.indexd.enums.Role;
 import cdis.indexd.enums.Secured;
 import cdis.indexd.model.User;
-import nw.orm.jpa.JpaDaoFactory;
 
 @Provider
 public class IndexRequestFilter implements ContainerRequestFilter {
@@ -32,10 +28,7 @@ public class IndexRequestFilter implements ContainerRequestFilter {
     private Logger logger;
 	
 	@Inject
-    private AuthTokenizer tokenizer;
-	
-	@Inject
-	private JpaDaoFactory factory;
+    private AuthProvider authProvider;
 	
 	@Context
     private ResourceInfo resourceInfo;
@@ -53,7 +46,8 @@ public class IndexRequestFilter implements ContainerRequestFilter {
 			ra = mtd.getAnnotation(Secured.class);
 		}
 		
-		User authorizedUser = authenticate(authorization);
+		logger.info("Logging Request from: " + authorization);
+		User authorizedUser = authProvider.authenticate(authorization);
 		if(authorizedUser != null && ra != null) {
 			boolean allowed = false;
 			Set<Role> rs = new HashSet<Role>(Arrays.asList(ra.value()));
@@ -69,41 +63,6 @@ public class IndexRequestFilter implements ContainerRequestFilter {
 				throw new NotAuthorizedException("Bearer");
 			}
 		}
-	}
-	
-	private User authenticate(String authText) throws UnsupportedEncodingException {
-		if(authText == null) {
-			return null;
-		}
-		
-		String[] authTokens = authText.split(" ");
-		if(authTokens.length != 2){
-			return null;
-		}
-		
-		String scheme = authTokens[0].toUpperCase(Locale.getDefault()); // Basic/Bearer
-		String token = authTokens[1];
-		
-		
-		if(scheme.equals("BASIC")) {
-			doBasicLogin(token);
-		}else {
-			// jwt login
-			User user = tokenizer.verify(token);
-		}
-		
-		return null;
-	}
-	
-	private void doBasicLogin(String authToken) throws UnsupportedEncodingException {
-		String decodedAuth = new String(Base64.getDecoder().decode(authToken), "UTF-8");
-		String[] tokens = decodedAuth.split(":"); // username:password
-		String username = tokens[0];
-		String password = tokens[1];
-	}
-	
-	private void doJwtLogin() {
-		
 	}
 
 }

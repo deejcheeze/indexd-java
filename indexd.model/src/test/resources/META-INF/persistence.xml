@@ -7,6 +7,7 @@
 	<persistence-unit name="indexd-test">
 	    <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 	    <!-- <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> -->
+	    <class>cdis.indexd.model.User</class>
 	    <class>cdis.indexd.model.BaseIndex</class>
 		<class>cdis.indexd.model.FileIndex</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>

@@ -2,7 +2,6 @@ package cdis.indexd.api.impl;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.validation.Valid;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -42,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Response enroll(@Valid User user) {
+	public Response enroll(User user) {
 		User exUser = userDao.find(QueryParameter.create("username", user.getUsername()));
 		
 		if(exUser != null) {
@@ -57,7 +56,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Response verify(@Valid User user) {
+	public Response verify(User user) {
 		throw new WebApplicationException(Status.FORBIDDEN);
 	}
 

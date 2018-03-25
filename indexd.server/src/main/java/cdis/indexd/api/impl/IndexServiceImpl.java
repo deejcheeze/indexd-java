@@ -2,8 +2,6 @@ package cdis.indexd.api.impl;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -41,7 +39,7 @@ public class IndexServiceImpl implements IndexService {
 	}
 
 	@Override
-	public Document add(@NotNull @Valid Document index) {
+	public Document add(Document index) {
 		FileIndex fileIndex = index.toIndex();
 		if(fileIndex.getDid() != null) {
 			// check if did is unique
@@ -51,7 +49,7 @@ public class IndexServiceImpl implements IndexService {
 	}
 
 	@Override
-	public void addRevision(String indexId, @NotNull @Valid Document index) {
+	public void addRevision(String indexId, Document index) {
 		// TODO Auto-generated method stub
 
 	}

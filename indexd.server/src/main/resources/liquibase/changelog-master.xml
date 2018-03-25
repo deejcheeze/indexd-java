@@ -68,4 +68,47 @@
     <changeSet author="rowland (generated)" id="1521843881070-6">
         <addForeignKeyConstraint baseColumnNames="base_index_fk" baseTableName="file_indexes" constraintName="FKsbeyj07olpxxj3mc98p0sgph" deferrable="false" initiallyDeferred="false" referencedColumnNames="PK" referencedTableName="base_indexes"/>
     </changeSet>
+    <changeSet author="rowland (generated)" id="1521948926705-1">
+        <createTable tableName="users">
+            <column autoIncrement="true" name="PK" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="usersPK"/>
+            </column>
+            <column name="ACTIVE" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CREATE_DATE" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DELETED" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="LAST_MODIFIED" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blacklisted" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="role" type="VARCHAR(255)"/>
+            <column name="username" type="VARCHAR(64)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="verified" type="BOOLEAN">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="rowland (generated)" id="1521948926705-2">
+        <addColumn tableName="file_indexes">
+            <column name="user_fk" type="int8">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+    </changeSet>
+    <changeSet author="rowland (generated)" id="1521948926705-3">
+        <addUniqueConstraint columnNames="username" constraintName="UC_USERSUSERNAME_COL" tableName="users"/>
+    </changeSet>
+    <changeSet author="rowland (generated)" id="1521948926705-4">
+        <addForeignKeyConstraint baseColumnNames="user_fk" baseTableName="file_indexes" constraintName="FK4l8brc9oqws60geggjvw0344u" deferrable="false" initiallyDeferred="false" referencedColumnNames="PK" referencedTableName="users"/>
+    </changeSet>
 </databaseChangeLog>

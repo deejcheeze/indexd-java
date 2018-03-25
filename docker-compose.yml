@@ -15,7 +15,7 @@ services:
         build: 
             context: ./indexd.server
             args:
-                WAR: index.server-0.0.1-SNAPSHOT.war
+                WAR: indexd.server-0.0.1-SNAPSHOT.war
         ports:
           - "8443"
           - "8080:8080"

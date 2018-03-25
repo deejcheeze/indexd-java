@@ -6,6 +6,7 @@
 
 	<persistence-unit name="indexd" transaction-type="JTA">
 	    <jta-data-source>java:/indexd/db</jta-data-source>
+	    <class>cdis.indexd.model.User</class>
 	    <class>cdis.indexd.model.BaseIndex</class>
 		<class>cdis.indexd.model.FileIndex</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
